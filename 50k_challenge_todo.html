@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>₹50K Challenge — Daily Planner</title>
+<style>
+:root{--bg:#0b1020;--panel:#131b2e;--panel2:#18233a;--text:#f4f7ff;--muted:#9eabc4;--accent:#8b5cf6;--accent2:#22d3a6;--danger:#fb7185;--line:#293550}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#20204b 0,#0b1020 38%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+.wrap{max-width:1100px;margin:auto;padding:24px 16px 48px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:24px}.brand{font-weight:800;font-size:1.15rem;letter-spacing:.2px}.brand span{color:#a78bfa}.pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:.85rem}
+h1{font-size:clamp(1.8rem,5vw,3.2rem);line-height:1.05;margin:0 0 10px;letter-spacing:-1.4px}.hero p{color:var(--muted);margin:0 0 22px;line-height:1.6}.hero strong{color:#ddd6fe}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:22px 0}.card,.panel{background:linear-gradient(145deg,rgba(24,35,58,.96),rgba(17,25,43,.96));border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 12px 30px #00000016}.metric-label{font-size:.82rem;color:var(--muted);margin-bottom:10px}.metric{font-size:clamp(1.35rem,3vw,2rem);font-weight:800;letter-spacing:-.5px}.metric-sub{font-size:.78rem;color:var(--muted);margin-top:7px}.progress-card{margin-bottom:18px}.progress-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.progress-head h2,.panel h2{font-size:1.05rem;margin:0}.progress-track{height:12px;border-radius:99px;background:#293550;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .3s}.progress-foot{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:.82rem;margin-top:10px}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{padding:20px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.hint{color:var(--muted);font-size:.85rem;line-height:1.5;margin:8px 0 16px}
+label{display:block;font-size:.82rem;color:var(--muted);margin:12px 0 7px}input,select,textarea{width:100%;border:1px solid var(--line);background:#0d1527;color:var(--text);padding:12px;border-radius:11px;font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--accent)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:11px;padding:12px 15px;background:linear-gradient(100deg,var(--accent),#6d5dfc);color:white;font-weight:750;font:inherit;cursor:pointer;transition:transform .15s,opacity .15s}.btn:hover{transform:translateY(-1px)}.btn:active{transform:scale(.98)}.btn.secondary{background:#26334d;color:#e5eaff;border:1px solid #34425f}.btn.danger{background:#3b1e31;color:#fecdd3;border:1px solid #6a2b45}.btn.small{padding:7px 10px;font-size:.8rem}.form-actions{display:flex;gap:10px;margin-top:14px}.form-actions .btn{flex:1}
+.list{display:flex;flex-direction:column;gap:9px}.item{display:flex;align-items:center;gap:10px;padding:12px;background:#0d1527;border:1px solid var(--line);border-radius:12px}.item-main{min-width:0;flex:1}.item-title{font-weight:650;overflow-wrap:anywhere}.item-meta{font-size:.78rem;color:var(--muted);margin-top:4px}.item.done .item-title{text-decoration:line-through;color:var(--muted)}.check{width:19px;height:19px;accent-color:var(--accent2);flex-shrink:0}.empty{color:var(--muted);text-align:center;padding:24px 8px;border:1px dashed var(--line);border-radius:12px;font-size:.9rem}.log-amount{color:var(--accent2);font-weight:800;white-space:nowrap}.section-gap{margin-top:18px}.date-title{font-weight:700}.footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:24px;line-height:1.6}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.columns{grid-template-columns:1fr}.wrap{padding:18px 12px 34px}.panel{padding:16px}}
+@media(max-width:380px){.row{grid-template-columns:1fr}.metric{font-size:1.35rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div class="brand">⚡ <span>₹50K</span> CHALLENGE</div><div class="pill">Oct 11 – Nov 6, 2026 · 27 days</div></header>
+  <section class="hero">
+    <h1>Turn your tasks into <span style="color:#a78bfa">₹50,000.</span></h1>
+    <p>Track daily earnings, finish your tasks, and watch your remaining target decrease automatically. Your data is saved on this device.</p>
+  </section>
+  <section class="grid">
+    <div class="card"><div class="metric-label">🎯 Goal</div><div class="metric" id="goalMetric">₹50,000</div><div class="metric-sub">Your total target</div></div>
+    <div class="card"><div class="metric-label">💰 Earned so far</div><div class="metric" id="earnedMetric">₹0</div><div class="metric-sub">All entries combined</div></div>
+    <div class="card"><div class="metric-label">🚀 Still to earn</div><div class="metric" id="remainingMetric">₹50,000</div><div class="metric-sub">Goal minus earnings</div></div>
+    <div class="card"><div class="metric-label">📅 Daily average needed</div><div class="metric" id="dailyMetric">₹1,852</div><div class="metric-sub">Based on 27 challenge days</div></div>
+  </section>
+  <section class="card progress-card">
+    <div class="progress-head"><h2>Challenge progress</h2><strong id="progressPercent">0%</strong></div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-foot"><span id="progressEarned">₹0 earned</span><span id="progressRemaining">₹50,000 remaining</span></div>
+  </section>
+  <div class="columns">
+    <section class="panel">
+      <div class="panel-head"><h2>＋ Add daily earnings</h2></div>
+      <p class="hint">Enter what you actually earned. The amount will be deducted from your remaining ₹50,000 target.</p>
+      <form id="earningForm">
+        <label for="earningDate">Date</label><input id="earningDate" type="date" min="2026-10-11" max="2026-11-06" required>
+        <div class="row">
+          <div><label for="earningAmount">Amount earned (₹)</label><input id="earningAmount" type="number" min="0.01" step="0.01" placeholder="e.g. 1500" required></div>
+          <div><label for="earningSource">Source</label><input id="earningSource" type="text" placeholder="e.g. Website client"></div>
+        </div>
+        <label for="earningNote">Note (optional)</label><input id="earningNote" type="text" placeholder="What did you do to earn it?">
+        <div class="form-actions"><button class="btn" type="submit">Save earnings</button><button class="btn secondary" type="reset">Clear</button></div>
+      </form>
+      <div class="section-gap"><div class="panel-head"><h2>Recent earnings</h2><button class="btn small secondary" id="exportBtn" type="button">Export CSV</button></div><div class="list" id="earningsList"></div></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2>☑ Daily task list</h2></div>
+      <p class="hint">Add actions that can help you reach the goal. Check them off as you finish.</p>
+      <form id="taskForm">
+        <label for="taskTitle">Task</label><input id="taskTitle" type="text" placeholder="e.g. Contact 10 potential clients" required>
+        <div class="row">
+          <div><label for="taskDate">Due date</label><input id="taskDate" type="date" min="2026-10-11" max="2026-11-06" required></div>
+          <div><label for="taskPriority">Priority</label><select id="taskPriority"><option>High</option><option selected>Medium</option><option>Low</option></select></div>
+        </div>
+        <div class="form-actions"><button class="btn" type="submit">＋ Add task</button></div>
+      </form>
+      <div class="section-gap"><div class="panel-head"><h2>Your tasks</h2><select id="taskFilter" style="width:auto;padding:8px"><option value="all">All</option><option value="open">To do</option><option value="done">Completed</option></select></div><div class="list" id="tasksList"></div></div>
+    </section>
+  </div>
+  <div class="footer">Challenge dates: October 11 to November 6, 2026. Daily average target is about ₹1,852.<br>Progress is a tracker, not a guarantee of income. Your entries stay in this browser using local storage.</div>
+</div>
+<script>
+const GOAL=50000, START='2026-10-11', END='2026-11-06';
+const $=id=>document.getElementById(id);
+let data={earnings:[],tasks:[]};
+try{const saved=localStorage.getItem('challenge50k_v1');if(saved)data={...data,...JSON.parse(saved)}}catch(e){}
+const today=new Date(); const localDate = d => {const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)};
+const todayStr=localDate(today);
+$('earningDate').value=(todayStr>=START&&todayStr<=END)?todayStr:START;
+$('taskDate').value=(todayStr>=START&&todayStr<=END)?todayStr:START;
+const money=n=>'₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2,minimumFractionDigits:0});
+const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){localStorage.setItem('challenge50k_v1',JSON.stringify(data));render()}
+function render(){
+ const earned=data.earnings.reduce((s,e)=>s+Number(e.amount),0), remaining=Math.max(0,GOAL-earned), pct=Math.min(100,earned/GOAL*100);
+ $('earnedMetric').textContent=money(earned);$('remainingMetric').textContent=money(remaining);$('progressPercent').textContent=Math.round(pct)+'%';$('progressFill').style.width=pct+'%';$('progressEarned').textContent=money(earned)+' earned';$('progressRemaining').textContent=money(remaining)+' remaining';
+ const now=todayStr;const daysLeft=Math.max(1,Math.ceil((new Date(END+'T23:59:59')-new Date(Math.max(Date.parse(now),Date.parse(START)) ))/86400000)+1);
+ $('dailyMetric').textContent=money(remaining/daysLeft);
+ const earnings=[...data.earnings].sort((a,b)=>b.date.localeCompare(a.date));
+ $('earningsList').innerHTML=earnings.length?earnings.map(e=>`<div class="item"><div class="item-main"><div class="item-title">${escapeHtml(e.source||'Earning')}</div><div class="item-meta">${escapeHtml(e.date)}${e.note?' · '+escapeHtml(e.note):''}</div></div><div class="log-amount">+${money(e.amount)}</div><button class="btn small danger" type="button" data-delete-earning="${e.id}" aria-label="Delete earning">×</button></div>`).join(''):'<div class="empty">No earnings entered yet. Add your first amount above.</div>';
+ const filter=$('taskFilter').value;
+ let tasks=[...data.tasks].sort((a,b)=>a.date.localeCompare(b.date));
+ if(filter==='open')tasks=tasks.filter(t=>!t.done);if(filter==='done')tasks=tasks.filter(t=>t.done);
+ $('tasksList').innerHTML=tasks.length?tasks.map(t=>`<div class="item ${t.done?'done':''}"><input class="check" type="checkbox" data-toggle-task="${t.id}" ${t.done?'checked':''} aria-label="Mark task complete"><div class="item-main"><div class="item-title">${escapeHtml(t.title)}</div><div class="item-meta">${escapeHtml(t.date)} · ${escapeHtml(t.priority)} priority</div></div><button class="btn small danger" type="button" data-delete-task="${t.id}" aria-label="Delete task">×</button></div>`).join(''):'<div class="empty">No tasks here yet. Add one small action to get started.</div>';
+}
+$('earningForm').addEventListener('submit',e=>{e.preventDefault();const amount=Number($('earningAmount').value);if(!(amount>0))return;data.earnings.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),date:$('earningDate').value,amount,source:$('earningSource').value.trim(),note:$('earningNote').value.trim()});$('earningAmount').value='';$('earningSource').value='';$('earningNote').value='';save()});
+$('taskForm').addEventListener('submit',e=>{e.preventDefault();data.tasks.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),title:$('taskTitle').value.trim(),date:$('taskDate').value,priority:$('taskPriority').value,done:false});$('taskTitle').value='';save()});
+$('taskFilter').addEventListener('change',render);
+document.addEventListener('click',e=>{const de=e.target.closest('[data-delete-earning]');if(de){data.earnings=data.earnings.filter(x=>x.id!==de.dataset.deleteEarning);save();return}const dt=e.target.closest('[data-delete-task]');if(dt){data.tasks=data.tasks.filter(x=>x.id!==dt.dataset.deleteTask);save()}});
+document.addEventListener('change',e=>{if(e.target.matches('[data-toggle-task]')){const t=data.tasks.find(x=>x.id===e.target.dataset.toggleTask);if(t)t.done=e.target.checked;save()}});
+$('exportBtn').addEventListener('click',()=>{const rows=[['Date','Amount','Source','Note'],...data.earnings.map(e=>[e.date,e.amount,e.source,e.note])];const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='50k-challenge-earnings.csv';a.click();URL.revokeObjectURL(url)});
+render();
+</script>
+</body>
+</html>
